@@ -12,4 +12,10 @@ class StringCalculatorTest < Test::Unit::TestCase
     assert_equal(10, StringCalculator.new('10').add)
   end
 
+  def test_for_two_numbers
+    assert_equal(3, StringCalculator.new('1,2').add)
+    assert_equal(15, StringCalculator.new('5,10').add)
+    assert_equal(28, StringCalculator.new('3,25').add)
+  end
+
 end
