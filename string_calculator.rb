@@ -8,6 +8,7 @@ class StringCalculator
 
   def add
     return 0 if input_str.length.zero?
+    return input_str.to_i
   end
 
 end

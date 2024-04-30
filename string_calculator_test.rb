@@ -6,4 +6,10 @@ class StringCalculatorTest < Test::Unit::TestCase
     assert_equal(0, StringCalculator.new('').add)
   end
 
+  def test_for_one_number
+    assert_equal(1, StringCalculator.new('1').add)
+    assert_equal(2, StringCalculator.new('2').add)
+    assert_equal(10, StringCalculator.new('10').add)
+  end
+
 end
