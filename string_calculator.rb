@@ -8,7 +8,11 @@ class StringCalculator
 
   def add
     return 0 if input_str.length.zero?
-    inputs = input_str.split(',')
+    updated_input_str = input_str.gsub(/\n/, ',')
+    raise if input_str.include?(",\n") || input_str.include?("\n,")
+
+    inputs = updated_input_str.split(',')
+
     if inputs.length > 1
       inputs.map{ |input| input.to_i }.sum
     else

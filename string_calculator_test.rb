@@ -24,4 +24,13 @@ class StringCalculatorTest < Test::Unit::TestCase
     assert_equal(40, StringCalculator.new('3,25,2,10').add)
   end
 
+  def test_for_valid_new_line_separator
+    assert_equal(6, StringCalculator.new("1\n2,3").add)
+  end
+
+  def test_for_invalid_new_line_separator
+    assert_raise( RuntimeError ) { StringCalculator.new("1,\n").add }
+    assert_raise( RuntimeError ) { StringCalculator.new("1\n,").add }
+  end
+
 end
