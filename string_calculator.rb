@@ -9,7 +9,7 @@ class StringCalculator
   def add
     return 0 if input_str.length.zero?
     inputs = input_str.split(',')
-    if inputs.length == 2
+    if inputs.length > 1
       inputs.map{ |input| input.to_i }.sum
     else
       return input_str.to_i
