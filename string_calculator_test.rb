@@ -38,4 +38,9 @@ class StringCalculatorTest < Test::Unit::TestCase
     assert_raise( "negative numbers not allowed -10, -5" ) { StringCalculator.new("1,2,-5,8,-10").add }
   end
 
+  def test_for_different_delimiter
+    assert_equal(3, StringCalculator.new("//;\n1;2").add)
+    assert_equal(18, StringCalculator.new("//#\n2#6#10").add)
+    assert_equal(60, StringCalculator.new("//.\n10.20.30").add)
+  end
 end
