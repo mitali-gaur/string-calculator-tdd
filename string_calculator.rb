@@ -14,6 +14,9 @@ class StringCalculator
     inputs = updated_input_str.split(',')
 
     if inputs.length > 1
+      negatives = inputs.filter{ |input| input.to_i.negative? }
+      raise "negative numbers not allowed #{negatives.join(', ')}" if negatives.length > 0
+
       inputs.map{ |input| input.to_i }.sum
     else
       return input_str.to_i

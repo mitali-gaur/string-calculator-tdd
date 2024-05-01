@@ -33,4 +33,9 @@ class StringCalculatorTest < Test::Unit::TestCase
     assert_raise( RuntimeError ) { StringCalculator.new("1\n,").add }
   end
 
+  def test_for_negative_numbers
+    assert_raise( "negative numbers not allowed -1" ) { StringCalculator.new("-1,2,5").add }
+    assert_raise( "negative numbers not allowed -10, -5" ) { StringCalculator.new("1,2,-5,8,-10").add }
+  end
+
 end
