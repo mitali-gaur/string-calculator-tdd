@@ -1,36 +1,43 @@
 # Class to calculate sum for strings
 class StringCalculator
-  attr_accessor :input_str
+  DEFAULT_DELIMITER = ','
+  NEWLINE_CHAR = "\n"
+
+  attr_accessor :input_str, :delimiter
 
   def initialize(input_str)
     @input_str = input_str.to_s
+    @delimiter = fetch_delimiter
   end
 
   def add
-    return 0 if input_str.length.zero?
+    return 0 if input_str.empty?
 
-    delimiter = ","
-    if input_str[0,2] == "//" && input_str[3] = "\n"
-      delimiter = input_str[2]
-      total_length = input_str.length - 1
-      updated_input_str = input_str[4, total_length]
-    end
+    numbers = get_input_numbers
+    raise_error_if_negatives_present(numbers)
 
-    updated_input_str = updated_input_str ? updated_input_str : input_str
-
-    raise if updated_input_str.include?(",\n") || updated_input_str.include?("\n,")
-
-    updated_input_str = updated_input_str.gsub(/\n/, ',')
-    inputs = updated_input_str.split(delimiter)
-
-    if inputs.length > 1
-      negatives = inputs.filter{ |input| input.to_i.negative? }
-      raise "negative numbers not allowed #{negatives.join(', ')}" if negatives.length > 0
-
-      inputs.map{ |input| input.to_i }.sum
-    else
-      return input_str.to_i
-    end
+    numbers.sum
   end
 
+  private
+
+  def fetch_delimiter
+    custom_delimiter_present? ? input_str[2] : DEFAULT_DELIMITER
+  end
+
+  def custom_delimiter_present?
+    input_str.start_with?("//") && input_str[3] == NEWLINE_CHAR
+  end
+
+  def get_input_numbers
+    updated_input_str = custom_delimiter_present? ? input_str[4..-1] : input_str
+    raise if updated_input_str.include?(",\n") || updated_input_str.include?("\n,")
+
+    updated_input_str.gsub(NEWLINE_CHAR, delimiter).split(delimiter).map(&:to_i)
+  end
+
+  def raise_error_if_negatives_present(numbers)
+    negatives = numbers.select(&:negative?)
+    raise "Negative numbers not allowed: #{negatives.join(', ')}" unless negatives.empty?
+  end
 end
